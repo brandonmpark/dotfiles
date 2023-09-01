@@ -1,0 +1,37 @@
+
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+sudo yabai --load-sa
+
+yabai -m config debug_output on
+
+
+
+yabai -m config mouse_follows_focus on
+yabai -m config focus_follows_mouse off
+yabai -m config mouse_modifier fn
+
+# Set all padding and gaps to 20pt (default: 0)
+
+yabai -m config top_padding    10
+yabai -m config bottom_padding 10
+yabai -m config left_padding   10
+yabai -m config right_padding  10
+yabai -m config window_gap     10
+
+yabai -m config external_bar all:0:42
+
+yabai -m config window_shadow off
+
+yabai -m config window_opacity on
+yabai -m config active_window_opacity 1.0
+yabai -m config normal_window_opacity 0.9
+
+yabai -m config window_border_blur off
+yabai -m config window_border on
+yabai -m config window_border_width 1 
+yabai -m config window_border_radius 11
+yabai -m config active_window_border_color 0xAAcba6f7	
+yabai -m config normal_window_border_color 0xAA11111b
+
+# bsp or float (default: float)
+yabai -m config layout bsp
