@@ -1,0 +1,219 @@
+:root {
+  --uc-rosewater: #f5e0dc;
+  --uc-flamingo: #f2cdcd;
+  --uc-pink: #f5c2e7;
+  --uc-mauve: #cba6f7;
+  --uc-red: #f38ba8;
+  --uc-maroon: #eba0ac;
+  --uc-peach: #fab387;
+  --uc-yellow: #f9e2af;
+  --uc-green: #a6e3a1;
+  --uc-teal: #94e2d5;
+  --uc-sky: #89dceb;
+  --uc-sapphire: #74c7ec;
+  --uc-blue: #89b4fa;
+  --uc-lavender: #b4befe;
+  --uc-text: #cdd6f4;
+  --uc-subtext1: #bac2de;
+  --uc-subtext0: #a6adc8;
+  --uc-overlay2: #9399b2;
+  --uc-overlay1: #7f849c;
+  --uc-overlay0: #6c7086;
+  --uc-surface2: #585b70;
+  --uc-surface1: #45475a;
+  --uc-surface0: #313244;
+  --uc-base: #1e1e2e;
+  --uc-mantle: #181825;
+  --uc-crust: #11111b;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --uc-rosewater: #dc8a78;
+    --uc-flamingo: #dd7878;
+    --uc-pink: #ea76cb;
+    --uc-mauve: #8839ef;
+    --uc-red: #d20f39;
+    --uc-maroon: #e64553;
+    --uc-peach: #fe640b;
+    --uc-yellow: #df8e1d;
+    --uc-green: #40a02b;
+    --uc-teal: #179299;
+    --uc-sky: #04a5e5;
+    --uc-sapphire: #209fb5;
+    --uc-blue: #1e66f5;
+    --uc-lavender: #7287fd;
+    --uc-text: #4c4f69;
+    --uc-subtext1: #5c5f77;
+    --uc-subtext0: #6c6f85;
+    --uc-overlay2: #7c7f93;
+    --uc-overlay1: #8c8fa1;
+    --uc-overlay0: #9ca0b0;
+    --uc-surface2: #acb0be;
+    --uc-surface1: #bcc0cc;
+    --uc-surface0: #ccd0da;
+    --uc-base: #eff1f5;
+    --uc-mantle: #e6e9ef;
+    --uc-crust: #dce0e8;
+  }
+}
+
+
+#topmenu {
+  display: none !important;
+}
+
+
+#tablist-wrapper,
+#pinnedtablist {
+  background: var(--uc-base);
+}
+
+.tab:hover,
+.tab.active {
+  background: var(--uc-surface0);
+}
+
+
+
+#tablist-wrapper .tab-title-wrapper {
+
+  opacity: 0;
+  transform: translateX(-10px);
+
+  transition: all 200ms ease;
+  transition-delay: 0ms;
+
+}
+
+
+body:hover #tablist-wrapper .tab-title-wrapper {
+
+  opacity: 1;
+  transform: translateX(0);
+
+  transition-delay: 50ms;
+
+}
+
+
+
+.tab,
+.tab.active {
+  border-bottom: none !important;
+}
+
+
+
+#pinnedtablist:not(.compact) .tab {
+  padding: 6px;
+}
+
+#tablist .tab {
+  padding: 0 0 0 6px;
+}
+
+
+
+.tab {
+  overflow: visible;
+}
+
+.tab {
+  color: var(--uc-text);
+}
+
+.tab.active {
+  color: var(--uc-text);
+}
+
+
+
+#pinnedtablist:not(.compact) .tab[data-identity-color] .tab-context::before,
+#tablist .tab[data-identity-color] .tab-context::before {
+
+  position: absolute;
+  top: 13.5px;
+  margin-left: 5px;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 100%;
+  box-shadow: none;
+  content: '';
+
+}
+
+#tablist .tab[data-identity-color] .tab-context::before {
+  left: -3px
+}
+
+#tablist .tab.active {
+  box-shadow: none
+}
+
+#tablist .tab.active::before {
+
+  position: absolute;
+  top: 17.5px !important;
+  left: 6px !important;
+  width: 3px !important;
+  height: 3px !important;
+  bottom: auto;
+
+  background: var(--uc-text) !important;
+  border-radius: 100%;
+  box-shadow: none;
+
+  content: '';
+}
+
+#pinnedtablist .tab.active {
+  box-shadow: none !important;
+}
+
+#pinnedtablist .tab.active::before {
+
+  position: absolute;
+  top: 17.5px;
+  left: 6px;
+  width: 3px;
+  height: 3px;
+  bottom: auto;
+
+  width: 3px;
+
+  background: var(--uc-text) !important;
+  border-radius: 100%;
+  box-shadow: none;
+
+  content: '';
+}
+
+#pinnedtablist:not(.compact) .tab .tab-pin,
+.tab-close,
+.tab-loading-burst {
+  display: none;
+}
+
+#pinnedtablist:not(.compact) .tab[data-identity-color] .tab-context {
+  box-shadow: none !important;
+}
+
+.can-scroll-top #tablist {
+  mask: linear-gradient(transparent, var(--uc-crust) 40px);
+}
+
+.can-scroll-bottom #tablist {
+  mask: linear-gradient(var(--uc-crust) calc(100% - 40px), transparent);
+}
+
+.can-scroll-bottom.can-scroll-top #tablist {
+  mask: linear-gradient(transparent, var(--uc-crust) 40px calc(100% - 40px), transparent);
+}
+
+#topshadow,
+#bottomshadow {
+  display: none;
+}

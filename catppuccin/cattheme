@@ -1,0 +1,178 @@
+#!/opt/homebrew/bin/bash
+
+DOTFILES_DIR="/Users/brandonmpark/dotfiles/"
+
+declare -A latte=(
+      [rosewater]=dc8a78
+      [flamingo]=dd7878
+      [pink]=ea76cb
+      [mauve]=8839ef
+      [red]=d20f39
+      [maroon]=e64553
+      [peach]=fe640b
+      [yellow]=df8e1d
+      [green]=40a02b
+      [teal]=179299
+      [sky]=04a5e5
+      [sapphire]=209fb5
+      [blue]=1e66f5
+      [lavender]=7287fd
+      [text]=4c4f69
+      [subtext1]=5c5f77
+      [subtext0]=6c6f85
+      [overlay2]=7c7f93
+      [overlay1]=8c8fa1
+      [overlay0]=9ca0b0
+      [surface2]=acb0be
+      [surface1]=bcc0cc
+      [surface0]=ccd0da
+      [base]=eff1f5
+      [mantle]=e6e9ef
+      [crust]=dce0e8
+)  
+
+declare -A mocha=(
+      [rosewater]=f5e0dc
+      [flamingo]=f2cdcd
+      [pink]=f5c2e7
+      [mauve]=cba6f7
+      [red]=f38ba8
+      [maroon]=eba0ac
+      [peach]=fab387
+      [yellow]=f9e2af
+      [green]=a6e3a1
+      [teal]=94e2d5
+      [sky]=89dceb
+      [sapphire]=74c7ec
+      [blue]=89b4fa
+      [lavender]=b4befe
+      [text]=cdd6f4
+      [subtext1]=bac2de
+      [subtext0]=a6adc8
+      [overlay2]=9399b2
+      [overlay1]=7f849c
+      [overlay0]=6c7086
+      [surface2]=585b70
+      [surface1]=45475a
+      [surface0]=313244
+      [base]=1e1e2e
+      [mantle]=181825
+      [crust]=11111b
+)
+
+
+update_file() {
+    local filename="${DOTFILES_DIR}/${1}"
+    local pattern=$2
+    local new_scheme=$CATPPUCCIN_SCHEME
+
+    # Check if file exists
+    if [[ ! -f "$filename" ]]; then
+        echo "File does not exist: $filename"
+        return 1
+    fi
+
+    if [[ "$pattern" == "color" ]]; then
+        if [[ "$new_scheme" == "latte" ]]; then
+            for color_key in "${!mocha[@]}"; do
+                local old_color="${mocha[$color_key]}"
+                local new_color="${latte[$color_key]}"
+
+                # Preserve case of hex color codes during replacement
+                sed -i '' -E "s/$(echo $old_color | tr '[:lower:]' '[:upper:]')/$(echo $new_color | tr '[:lower:]' '[:upper:]')/g" "$filename"
+                sed -i '' -E "s/$(echo $old_color | tr '[:upper:]' '[:lower:]')/$(echo $new_color | tr '[:upper:]' '[:lower:]')/g" "$filename"
+            done
+        elif [[ "$new_scheme" == "mocha" ]]; then
+            for color_key in "${!latte[@]}"; do
+                local old_color="${latte[$color_key]}"
+                local new_color="${mocha[$color_key]}"
+
+                # Preserve case of hex color codes during replacement
+                sed -i '' -E "s/$(echo $old_color | tr '[:lower:]' '[:upper:]')/$(echo $new_color | tr '[:lower:]' '[:upper:]')/g" "$filename"
+                sed -i '' -E "s/$(echo $old_color | tr '[:upper:]' '[:lower:]')/$(echo $new_color | tr '[:upper:]' '[:lower:]')/g" "$filename"
+            done
+        fi
+        return 0
+    elif [[ "$pattern" == *CATSCHEME* ]]; then
+        # Placeholder is all uppercase
+        scheme_replacement=$(echo "$new_scheme" | tr '[:lower:]' '[:upper:]')
+        placeholder="CATSCHEME"
+        regex_scheme="(MOCHA|LATTE)"
+    elif [[ "$pattern" == *Catscheme* ]]; then
+        # Placeholder has first letter uppercase
+        first_letter=$(echo "$new_scheme" | cut -c1 | tr '[:lower:]' '[:upper:]')
+        rest=$(echo "$new_scheme" | cut -c2-)
+        scheme_replacement="${first_letter}${rest}"
+        placeholder="Catscheme"
+        regex_scheme="(Mocha|Latte)"
+    elif [[ "$pattern" == *catscheme* ]]; then
+        # Placeholder is all lowercase
+        scheme_replacement=$(echo "$new_scheme" | tr '[:upper:]' '[:lower:]')
+        placeholder="catscheme"
+        regex_scheme="(mocha|latte)"
+    else
+        echo "Invalid placeholder format. Must be CATSCHEME, Catscheme, catscheme, or color."
+        return 1
+    fi
+
+    # Escape special characters in the pattern (excluding the placeholder)
+    escaped_pattern=$(echo "$pattern" | sed -e 's/[&/]/\\&/g' -e 's/\./\\./g' -e 's/-/\\-/g' -e 's/"/\\"/g')
+
+    # Replace the placeholder in the escaped pattern with the regex to match any of the colorschemes
+    escaped_pattern="${escaped_pattern/$placeholder/$regex_scheme}"
+
+    # Construct the replacement pattern
+    replacement_pattern=$(echo "$pattern" | sed "s/$placeholder/$scheme_replacement/")
+
+    # Update the file, using case sensitive replacement
+    sed -i '' -E "s/${escaped_pattern}/${replacement_pattern}/g" "$filename"
+}
+
+switch_theme() {
+    local theme="$1"  
+
+    case "$theme" in
+        mocha|latte)
+            export CATPPUCCIN_SCHEME="$theme"
+            ;;
+        *)
+            echo "Invalid theme: $theme. Valid themes are mocha, latte."
+            exit 1
+            ;;
+    esac
+
+    if [[ "$theme" == mocha ]]; then
+        osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+    else
+        osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
+    fi
+    # ADD UPDATE LINES HERE
+    # update_file "path/to/your/configuration/file" "catppuccin-CATSCHEME"
+    update_file "nvim/.config/nvim/lua/plugins/catppuccin.lua" "catppuccin-catscheme" # nvim
+    update_file "wezterm/.wezterm.lua" "Catppuccin Catscheme" # wezterm
+    update_file "tmux/.tmux.conf" "catppuccin_flavour \"catscheme\"" # tmux
+    update_file "discord/Library/Application Support/BetterDiscord/data/stable/themes.json" "Catppuccin Catscheme" # discord
+    update_file "spicetify/.config/spicetify/config-xpui.ini" "catscheme" # spicetify
+    spicetify apply
+    update_file "sketchybar/.config/sketchybar/colors.lua" "color" # sketchybar
+    brew services restart sketchybar
+    update_file "yabai/.config/yabai/yabairc" "color" # yabai
+    yabai --restart-service
+    update_file "sioyek/.config/sioyek/prefs_user.config" "color" # sioyek
+    update_file "alfred/Alfred.alfredpreferences/themes/theme.fileimport.74BED859-AE19-42CB-B2F2-331C14FF9AB2/theme.json" "color" # alfred
+    update_file "firefox/.config/firefox/startpage/style.css" "color" # firefox
+    update_file "firefox/.config/firefox/startpage/icons/code.svg" "color"
+    update_file "firefox/.config/firefox/startpage/icons/music.svg" "color"
+    update_file "firefox/.config/firefox/startpage/icons/entertainment.svg" "color"
+    update_file "firefox/.config/firefox/startpage/icons/docs.svg" "color"
+    update_file "firefox/.config/firefox/startpage/index.html" "catscheme.png"
+    update_file "firefox/Library/Application Support/Firefox/Profiles/vwnky18x.default-release/chrome/userChrome.css" "color"
+    update_file "cava/.config/cava/config" "color" # alfred
+}
+
+if [ "$#" -eq 0 ]; then
+    echo "Usage: $0 <theme>"
+    exit 1
+else
+    switch_theme "$1"
+fi

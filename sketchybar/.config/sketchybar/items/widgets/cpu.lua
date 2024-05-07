@@ -18,6 +18,7 @@ local cpu = sbar.add("graph", "widgets.cpu" , 42, {
   icon = { string = icons.cpu, color = colors.green },
   label = {
     string = "cpu ??%",
+    color = colors.green,
     font = {
       family = settings.font.numbers,
       style = settings.font.style_map["Bold"],

@@ -43,6 +43,10 @@
 @namespace url("http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul");
 /* only needed once */
 
+#navigator-toolbox {
+  font-family: "IosevkaTerm Nerd Font" !important
+}
+
 /* hide 'overlink' messages */
 #statuspanel[type="overLink"] {
   opacity: 0 !important;
@@ -72,9 +76,13 @@
 }
 
 browser {
-  background-color: #1e1e2e !important;
+  background-color: #eff1f5 !important;
 }
 
 #urlbar *|input::placeholder {
   opacity: 0 !important;
+}
+
+.TridactylHintElem {
+  background-color: unset !important;
 }

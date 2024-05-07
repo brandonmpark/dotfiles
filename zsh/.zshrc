@@ -2,13 +2,17 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 
+
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
+
 export ZSH_CUSTOM="$HOME/dotfiles/zsh/.oh-my-zsh/custom"
 
 export VI_MODE_SET_CURSOR=true
+bindkey -v
+KEYTIMEOUT=1
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -24,7 +28,9 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="/Applications/MuseScore 4.app/Contents/MacOS:$PATH"
 export PATH="$HOME/.config/yabai/modes:$PATH"
+export PATH="$HOME/dotfiles/catppuccin:$PATH"
 
+alias v=nvim
 # pnpm
 export PNPM_HOME="/Users/brandonmpark/Library/pnpm"
 export PATH="$PNPM_HOME:$PATH"
@@ -108,13 +114,16 @@ unset __conda_setup
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(    git vi-mode
-    )
+plugins=(git vi-mode fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+source /opt/homebrew/share/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+zstyle -e ':autocomplete:*:*' list-lines 'reply=( $(( LINES / 3 )) )'
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
@@ -124,11 +133,11 @@ export FZF_DEFAULT_COMMAND="find ."
 export FZF_DEFAULT_OPTS="-e"
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi 
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -141,14 +150,14 @@ export FZF_DEFAULT_OPTS="-e"
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-alias zshconfig="code ~/.zshrc"
+alias zshconfig="nvim ~/.zshrc"
 alias fzd="find . -type d -print | fzf"
 alias o="open -a"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
 
 # # The first option is a translation of the catppuccin colors to their closest match in a 256 color scheme (dependency free)
 # BLK="E5" CHR="E5" DIR="99" EXE="97" REG="07" HARDLINK="E1" SYMLINK="E1" MISSING="08" ORPHAN="D3" FIFO="9F" SOCK="E5" UNKNOWN="D3"
@@ -190,7 +199,7 @@ n ()
 
     # The command builtin allows one to alias nnn to n, if desired, without
     # making an infinitely recursive alias
-    command nnn "$@"
+    command nnn -e "$@"
 
     [ ! -f "$NNN_TMPFILE" ] || {
         . "$NNN_TMPFILE"
@@ -204,3 +213,7 @@ n ()
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -f "${HOME}/.google-drive-upload/bin/gupload" ] && [ -x "${HOME}/.google-drive-upload/bin" ] && PATH="${HOME}/.google-drive-upload/bin:${PATH}"
+
+if [ "$TMUX" = "" ]; then tmux a || tmux; fi
+# To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
+[[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh
