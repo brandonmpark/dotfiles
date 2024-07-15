@@ -146,7 +146,6 @@ fi
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
-#
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
@@ -208,12 +207,12 @@ n ()
 }
 # bun completions
 [ -s "/Users/brandonmpark/.bun/_bun" ] && source "/Users/brandonmpark/.bun/_bun"
-
+alias devlog='nvim ~/Desktop/Coding/devlog/$(date -v-6H "+%Y-%m-%d")'
+alias note='nvim ~/Desktop/Documents/sticky.md'
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 [ -f "${HOME}/.google-drive-upload/bin/gupload" ] && [ -x "${HOME}/.google-drive-upload/bin" ] && PATH="${HOME}/.google-drive-upload/bin:${PATH}"
 
-if [ "$TMUX" = "" ]; then tmux a || tmux; fi
 # To customize prompt, run `p10k configure` or edit ~/dotfiles/zsh/.p10k.zsh.
 [[ ! -f ~/dotfiles/zsh/.p10k.zsh ]] || source ~/dotfiles/zsh/.p10k.zsh

@@ -1,6 +1,6 @@
 local wezterm = require("wezterm")
 local config = wezterm.config_builder()
-config.color_scheme = "Catppuccin Latte"
+config.color_scheme = "Catppuccin Mocha"
 config.font = wezterm.font_with_fallback({
 	"Iosevka Term",
 	"Symbols Nerd Font Mono",
@@ -18,5 +18,7 @@ config.window_padding = {
 config.default_cursor_style = "BlinkingBar"
 config.window_close_confirmation = "NeverPrompt"
 config.line_height = 1
+
+config.allow_square_glyphs_to_overflow_width = "Never"
 
 return config

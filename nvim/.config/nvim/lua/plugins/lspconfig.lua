@@ -68,6 +68,18 @@ return {
 						},
 					},
 				},
+				pyright = {
+					settings = {
+						python = {
+							analysis = {
+								extraPaths = {
+									"~/Desktop/Coding/mount/arxiv_latex_project/",
+									-- Add any sshfs mounts here
+								},
+							},
+						},
+					},
+				},
 			}
 
 			require("mason").setup()

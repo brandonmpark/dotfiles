@@ -143,8 +143,10 @@ switch_theme() {
 
     if [[ "$theme" == mocha ]]; then
         osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to true'
+        osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"/Users/brandonmpark/dotfiles/wallpapers/mocha.png\" as POSIX file"
     else
         osascript -e 'tell application "System Events" to tell appearance preferences to set dark mode to false'
+        osascript -e "tell application \"System Events\" to tell every desktop to set picture to \"/Users/brandonmpark/dotfiles/wallpapers/latte.png\" as POSIX file"
     fi
     # ADD UPDATE LINES HERE
     # update_file "path/to/your/configuration/file" "catppuccin-CATSCHEME"

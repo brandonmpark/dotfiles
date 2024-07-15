@@ -3,13 +3,14 @@ vim.opt.number = true
 vim.opt.relativenumber = true
 
 -- Hide command line
-vim.opt.cmdheight = 0
+-- vim.opt.cmdheight = 0
 
 -- Enable mouse
 vim.opt.mouse = "a"
 
--- Don't show mode
-vim.opt.showmode = false
+-- Don't show statusline
+vim.opt.laststatus = 0
+vim.opt.ruler = false
 
 -- Sync clipboard
 vim.opt.clipboard = "unnamedplus"
@@ -62,7 +63,7 @@ vim.opt.smarttab = true
 
 -- Line wrapping
 vim.opt.wrap = false
-vim.opt.textwidth = 119
+-- vim.opt.textwidth = 79
 
 -- Virtual editing
 vim.opt.virtualedit = "block"

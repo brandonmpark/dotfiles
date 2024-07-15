@@ -24,6 +24,7 @@ local cmp_kinds = {
 	Event = "",
 	Operator = "",
 	TypeParameter = "",
+	Copilot = "",
 }
 
 return {
@@ -90,12 +91,16 @@ return {
 						cmp_ultisnips_mappings.jump_backwards(fallback)
 					end, { "i", "s" }),
 
-					["<Esc>"] = cmp.mapping.abort(),
+					-- ["<Esc>"] = cmp.mapping.abort(),
 				}),
 				sources = {
 					{ name = "ultisnips" },
+					{ name = "copilot" },
 					{ name = "nvim_lsp" },
 					{ name = "path" },
+				},
+				experimental = {
+					ghost_text = true,
 				},
 			})
 		end,

@@ -33,8 +33,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
 	end,
 })
 
--- Exit insert
-vim.keymap.set("i", "jj", "<Esc>", { silent = true })
-
 -- Correct spelling mistake
 vim.keymap.set("i", "<C-l>", "<C-g>u<Esc>[s1z=`]a<C-g>u")

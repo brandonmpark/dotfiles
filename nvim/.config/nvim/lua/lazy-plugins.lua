@@ -16,8 +16,6 @@ require("lazy").setup({
 	require("plugins/indent_line"),
 	require("plugins/lint"),
 	require("plugins/autopairs"),
-	-- require("plugins/neo-tree"),
-	require("plugins/lualine"),
 	{ "uga-rosa/ccc.nvim", opts = {} },
 	"unblevable/quick-scope",
 	{
@@ -27,6 +25,18 @@ require("lazy").setup({
 	require("plugins/leap"),
 	require("plugins/vimtex"),
 	require("plugins/tmux-navigation"),
-	require("plugins/nnn"),
+	-- require("plugins/nnn"),
 	"HiPhish/rainbow-delimiters.nvim",
+	-- { "stevearc/oil.nvim", opts = {} },
+	{ "andweeb/presence.nvim", opts = { neovim_image_text = "Neovim", main_image = "file", buttons = false } },
+	-- { "zbirenbaum/copilot.lua", opts = { suggestion = { enabled = false }, panel = { enabled = false } } },
+	-- { "zbirenbaum/copilot-cmp", opts = {} },
+	{
+		"iamcco/markdown-preview.nvim",
+		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+		ft = { "markdown" },
+		build = function()
+			vim.fn["mkdp#util#install"]()
+		end,
+	},
 })

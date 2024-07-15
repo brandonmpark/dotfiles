@@ -8,12 +8,12 @@ html{
   width: 100%;
   margin: 0;
   padding: 0;
-  background:#eff1f5;
+  background:#1e1e2e;
     }
 
 body {
-  background: #eff1f5;
-  color: #4c4f69;
+  background: #1e1e2e;
+  color: #cdd6f4;
   height: 100%;
   width: 100%;
   margin: 0;
@@ -48,12 +48,12 @@ body {
 .bookmarks {
   display: flex;
   flex-direction: column;
-  border: #dce0e8;
+  border: #11111b;
   border-radius: 10px;
   align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  background: #CCD0DA;
+  background: #313244;
 }
 
 .logo {
@@ -138,27 +138,27 @@ li {
 
 a:link {
   text-decoration: none;
-  color: #4c4f69;
+  color: #cdd6f4;
 }
 
 a:visited {
-  color: #4c4f69;
+  color: #cdd6f4;
 }
 
 div.bookmarks.cod a:hover {
-  color: #d20f39;
+  color: #f38ba8;
 }
 
 div.bookmarks.doc a:hover {
-  color: #fe640b;
+  color: #fab387;
 }
 
 div.bookmarks.ent a:hover {
-  color: #1e66f5;
+  color: #89b4fa;
 }
 
 div.bookmarks.mus a:hover {
-  color: #8839ef;
+  color: #cba6f7;
 }
 
 #logo {

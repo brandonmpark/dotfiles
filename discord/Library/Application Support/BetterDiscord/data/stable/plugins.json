@@ -1,6 +1,6 @@
 {
     "BDFDB": true,
-    "ZeresPluginLibrary": true,
+    "ZeresPluginLibrary": false,
     "FreeEmojis": true,
     "Double Click To Edit": true,
     "GameActivityToggle": true,
